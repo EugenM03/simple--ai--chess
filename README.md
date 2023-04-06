@@ -1,5 +1,3 @@
-&copy; Lazar Cristian-Stefan (314CA) and Munteanu Eugen (315CA) -- 2023-2024
-
 # BlitzBolt - a simple Chess game (written only in C!)
 
 ## Introduction
