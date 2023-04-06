@@ -1,4 +1,6 @@
+
 #SETUP
+
 CC = gcc
 PARAMS = -Wall -Wextra -g
 EXE = blitzbolt
