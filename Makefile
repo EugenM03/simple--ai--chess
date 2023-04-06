@@ -11,8 +11,8 @@ $(EXE): main.o
 main.o: main.c struct.h
 	$(CC) $(PARAMS) -c main.c
 
-run: blitzbolt
-	valgrind -s --leak-check=full --track-origins=yes --show-leak-kinds=all ./blitzbolt
+run: $(EXE)
+	valgrind -s --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(EXE)
 
 clean:
 	rm -f ./blitzbolt
