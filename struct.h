@@ -9,5 +9,5 @@ typedef struct piece {
 
   // Pointer to a function that checks if the piece can move to the given
   // position and returns TRUE if it can. Otherwise, returns FALSE
-  bool (*move)(piece ***, uint8_t[2], uint8_t[2]);
+  bool (*move)(struct piece ***, uint8_t[2], uint8_t[2]);
 } piece;

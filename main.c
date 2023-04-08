@@ -22,6 +22,30 @@ int main(void)
     // 3
     // 2
     // 1 a b c d e f g h
-
+    printf("qweiqwjeioquoiqweoquqw1\n");
+    printf("qweiqwjeioquoiqweoquqw2\n");
+    printf("qweiqwjeioquoiqweoquqw3\n");
+    printf("qweiqwjeioquoiqweoquqw4\n");
+    printf("qweiqwjeioquoiqweoquqw5\n");
+    printf("qweiqwjeioquoiqweoquqw6\n");
+    printf("qweiqwjeioquoiqweoquqw7\n");
+    printf("qweiqwjeioquoiqweoquqw8\n");
+    printf("qweiqwjeioquoiqweoquqw9\n");
+    printf("qweiqwjeioquoiqweoquqw10\n");
+    printf("qweiqwjeioquoiqweoquqw11\n");
+    printf("qweiqwjeioquoiqweoquqw12\n");
+    printf("qweiqwjeioquoiqweoquqw13\n");
+    printf("qweiqwjeioquoiqweoquqw14\n");
+    printf("qweiqwjeioquoiqweoquqw15\n");
+    printf("qweiqwjeioquoiqweoquqw16\n");
+    printf("qweiqwjeioquoiqweoquqw17\n");
+    printf("qweiqwjeioquoiqweoquqw18\n");
+    printf("qweiqwjeioquoiqweoquqw19\n");
+    printf("qweiqwjeioquoiqweoquqw20\n");
+    printf("qweiqwjeioquoiqweoquqw21\n");
+    int d;
+    scanf("%d", &d);
+    if (d == 1)
+        printf("\033[10;H\033[J");
     return 0;
 }
