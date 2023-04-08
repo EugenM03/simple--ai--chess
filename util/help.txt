@@ -1,0 +1,12 @@
+
+START_GAME [AI] -- description
+LOAD_GAME <path_to_file> -- description
+SAVE_GAME <path_to_file> -- description
+EXIT -- prompt_to_save_at_exit -- description
+PASS -- description
+MOVE <col><line>-<col><line> -- description
+RESIGN -- description
+[HINT] -- description
+
+
+
