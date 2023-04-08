@@ -62,6 +62,7 @@ int main(void)
 			printf("Invalid command.\n");
 			break;
 		}
+
 		}
 	}
 
