@@ -15,13 +15,42 @@ To create the program, use the command 'make' (or any equivalent for this Ubuntu
 \
 After that, an implementation of a chess table will be shown to `STDOUT`. By default, you are playing as white and thus making the first move (implementation of color choice might not be available in the final release).
 
-### How are moves supposed to be made?
+### Commands
 
-To make a move, the syntax is as it follows:\
-*\[column_initial_position\]\[number_initial_position]-\[column_final_position\]\[number_final_position\]*
+All commands are given from the command line, on as single line.
+The possible commands are:
 
-For instance, to start King's Pawn Opening (pawn to e4), you just type: d4-e4.\
-**Note:** no pieces need to be mentioned, detection and validation of moves may be done in the final release.
+* START_GAME \[AI\]
+  This command initiates a new PvP game with the default chess positions. It starts with white's turn and alternates with each move. The optional argument AI will instead initiate a new PvE game, giving the player a prompt to choose which color to play as (WHITE / BLACK). If a game is already in progress, the player will be given the choice to either save the current game or discard it, the default option being to discard it (y / N).
+
+* SAVE \<path_to_save_file\>
+  This command saves the current game to a file given by it's path (will create a new file if the given file doesn't exist).
+
+* LOAD \<path_to_save_file\>
+  This command loads the game saved in the file given by the path.
+
+* EXIT
+  This command exits the game and closes the application. If a game is in progress, the player will be prompted with the choice to either save the game or not. Otherwise, the application simply closes.
+
+* MOVE \<move\>
+  This command will move a given piece to a given position. The format for the move is as follows: \[start_position\]-\[end_position\].
+
+  Example:
+
+  ```text
+  MOVE c4-d2
+  ```
+
+  The command will first check if the move is valid and won't result in a check, and than executes the move.
+
+* PASS
+  This command will skip the current player's turn. Unorthodox, but usefull when you want to create specific scenarios.
+
+* RESIGN
+  This command will result in the game ending by forfeit of the current player. The game will be discarded.
+
+* HINT
+  This command will give the player a "good" suggestion for a move he could do.
 
 ---
 &nbsp;
