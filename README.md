@@ -1,3 +1,7 @@
+**&copy;** Lazar Cristian-Stefan 314CA 2023-2024
+
+**&copy;** Munteanu Eugen 315CA 2023-2024
+
 # BlitzBolt - a simple Chess game (written only in C!)
 
 ## Introduction
@@ -13,26 +17,28 @@ The game features a standard 8x8 chess board, with pieces that move according to
 
 To create the program, use the command 'make' (or any equivalent for this Ubuntu command).  Upon opening the executable, you can choose if you want to play versus another player (option 1) or play against our *(Stockfish's baby)* AI.\
 \
-After that, an implementation of a chess table will be shown to `STDOUT`. By default, you are playing as white and thus making the first move (implementation of color choice might not be available in the final release).
+After that, an implementation of a chess table will be shown to `STDOUT`. The player is able to choose what color to play, can save or load an unfinished game.
+
+&nbsp;
 
 ### Commands
 
 All commands are given from the command line, on as single line.
 The possible commands are:
 
-* START_GAME \[AI\]
+* `START_GAME [AI]` --
   This command initiates a new PvP game with the default chess positions. It starts with white's turn and alternates with each move. The optional argument AI will instead initiate a new PvE game, giving the player a prompt to choose which color to play as (WHITE / BLACK). If a game is already in progress, the player will be given the choice to either save the current game or discard it, the default option being to discard it (y / N).
 
-* SAVE \<path_to_save_file\>
+* `SAVE <path_to_save_file>` --
   This command saves the current game to a file given by it's path (will create a new file if the given file doesn't exist).
 
-* LOAD \<path_to_save_file\>
+* `LOAD <path_to_save_file>` --
   This command loads the game saved in the file given by the path.
 
-* EXIT
+* `EXIT` --
   This command exits the game and closes the application. If a game is in progress, the player will be prompted with the choice to either save the game or not. Otherwise, the application simply closes.
 
-* MOVE \<move\>
+* `MOVE <move>` --
   This command will move a given piece to a given position. The format for the move is as follows: \[start_position\]-\[end_position\].
 
   Example:
@@ -43,13 +49,13 @@ The possible commands are:
 
   The command will first check if the move is valid and won't result in a check, and than executes the move.
 
-* PASS
-  This command will skip the current player's turn. Unorthodox, but usefull when you want to create specific scenarios.
+* `PASS` --
+  This command will skip the current player's turn. Unorthodox, but useful when you want to create specific scenarios.
 
-* RESIGN
+* `RESIGN` --
   This command will result in the game ending by forfeit of the current player. The game will be discarded.
 
-* HINT
+* `HINT` --
   This command will give the player a "good" suggestion for a move he could do.
 
 ---
@@ -72,13 +78,39 @@ typedef struct piece {
 ---
 &nbsp;
 
-## Alpha-Beta Pruning
+## Chess AI Implementation
 
-Chess is a complex game with many possible moves and positions. When searching for the best move in a given position, it's important to use an efficient search algorithm that can explore the game tree as quickly as possible. Alpha-Beta Pruning is a popular algorithm for this purpose, as it can significantly reduce the number of nodes that need to be searched. \
-Implementation of chess AI may use Alpha-Beta Prunning in the final release.
+Chess is a complex game with many possible moves and positions. When searching for the best move in a given position, it's important to use an efficient search algorithm that can explore the game tree as quickly as possible.
+<!--Alpha-Beta Pruning is a popular algorithm for this purpose, as it can significantly reduce the number of nodes that need to be searched. \
+Implementation of chess AI may use Alpha-Beta Prunning in the final release.-->
+For the moment, we are unsure of what algorithm(s) and implementation(s) are going to be used in the final release. Stay tuned for updates! :\)
 
 ---
 &nbsp;
+
+## Team Composition and Tasks
+
+This C-programmed chess game will be made by two students, each having multiple tasks regarding this project. In short, here is a (changeable overtime) TODO list for them:
+* Munteanu Eugen:
+  * Responsible for `SAVE`/`LOAD` commands;
+  * Documentation, preparation for the presentation of the project;
+  * (Also) responsible for `EXIT`/`RESIGN`/`HELP` commands;
+&nbsp;
+* Lazar Cristian-Stefan:
+  * Responsible for Chess AI Implementation (choice of algorithm, efficiency, performance etc.);
+  * Check(mate) detection on the 8x8 board;
+  * Resposible for HINT command;
+&nbsp;
+* Both:
+  * Founding of the project base (way of storing the chess board, structures created, method of getting commands from `STDIN`);
+  * Final checks for bugs and coding style issues, also debugging;
+  * Contributing to *README.md*;
+  * *(having at least a small understanding of what the other one did)*
+
+## Contact
+
+The project will be often updated on the following GitHub *[link](https://github.com/EugenM03/simple--ai--chess).*
+It is a private repository for the moment. If you want access, don't hesitate to contact us on Teams!
 
 ## Final Words
 
