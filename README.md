@@ -6,9 +6,9 @@
 
 ## Introduction
 
-BlitzBolt is a command-line based chess game written in C language (only!), designed for players who want to enjoy a quick game of chess on their computer. It is a complex yet fun game that you can play against an AI or with another player.
+BlitzBolt is a command-line-based chess game written in C language (only!), designed for players who want to enjoy a quick game of chess on their computer. It is a complex yet fun game that you can play against an AI or with another player.
 
-The game features a standard 8x8 chess board, with pieces that move according to the standard chess rules. The environment where all the action is happening (sadly enough) is the console command you are currently running the game. The game also features a basic AI opponent, which provides a (somewhat) good challenge for beginners and casual players.
+The game features a standard 8x8 chess board, with pieces that move according to the standard chess rules. The environment where all the action is happening (sadly enough) is the console interface where you are currently running the game. The game also features a basic AI opponent, which provides a (somewhat) good challenge for beginners and casual players.
 
 ---
 &nbsp;
@@ -17,20 +17,20 @@ The game features a standard 8x8 chess board, with pieces that move according to
 
 To create the program, use the command 'make' (or any equivalent for this Ubuntu command).  Upon opening the executable, you can choose if you want to play versus another player (option 1) or play against our *(Stockfish's baby)* AI.\
 \
-After that, an implementation of a chess table will be shown to `STDOUT`. The player is able to choose what color to play, can save or load an unfinished game.
+After that, an implementation of a chess table will be shown to `STDOUT`. The player is able to choose what color to play and is even able to save or load an unfinished game.
 
 &nbsp;
 
 ### Commands
 
-All commands are given from the command line, as single, continueous line.
+All commands are given from the command line, each of them being on a single, continuous line.
 The possible commands are:
 
 * `START_GAME [AI]` --
   This command initiates a new PvP game with the default chess positions. It starts with white's turn and alternates with each move. The optional argument AI will instead initiate a new PvE game, giving the player a prompt to choose which color to play as (WHITE / BLACK). If a game is already in progress, the player will be given the choice to either save the current game or discard it, the default option being to discard it (y / N).
 
 * `SAVE <path_to_save_file>` --
-  This command saves the current game to a file given by it's path (will create a new file if the given file doesn't exist).
+  This command saves the current game to a file given by its path (will create a new file if the given file doesn't exist).
 
 * `LOAD <path_to_save_file>` --
   This command loads the game saved in the file given by the path.
@@ -47,7 +47,7 @@ The possible commands are:
   MOVE c4-d2
   ```
 
-  The command will first check if the move is valid and that it won't result in a check for the current player, and than executes the move.
+  The program will first check if the move is valid and that it won't result in a check for the current player and then executes the move.
 
 * `PASS` --
   This command will skip the current player's turn. Unorthodox, but useful when you want to create specific scenarios.
@@ -63,7 +63,8 @@ The possible commands are:
 
 ## Implementation
 
-All pieces are dynamically alocated in memory and stored as a structure:
+All pieces are dynamically allocated in memory and stored as a structure:
+
 ```C
 typedef struct piece {
   char color;  // piece's color
@@ -91,6 +92,7 @@ For the moment, we are unsure of what algorithm(s) and implementation(s) are goi
 ## Team Composition and Tasks
 
 This C-programmed chess game will be made by two students, each having multiple tasks regarding this project. In short, here is a (changeable overtime) TODO list for them:
+
 * Munteanu Eugen:
   * Responsible for `SAVE`/`LOAD` commands;
   * Documentation, preparation for the presentation of the project;
@@ -99,7 +101,7 @@ This C-programmed chess game will be made by two students, each having multiple 
 * Lazar Cristian-Stefan:
   * Responsible for Chess AI Implementation (choice of algorithm, efficiency, performance etc.);
   * Check(mate) detection on the 8x8 board;
-  * Resposible for HINT command;
+  * Responsible for HINT command;
 &nbsp;
 * Both:
   * Founding of the project base (way of storing the chess board, structures created, method of getting commands from `STDIN`);
@@ -109,8 +111,11 @@ This C-programmed chess game will be made by two students, each having multiple 
 
 ## Contact
 
-The project will be often updated on the following GitHub *[link](https://github.com/EugenM03/simple--ai--chess).*
-It is a private repository for the moment. If you want access, don't hesitate to contact us on Teams!
+The project will be often updated on the following GitHub [link](https://github.com/EugenM03/simple--ai--chess).
+
+It is a private repository for the moment. If you want access to its content, don't hesitate to contact us on Teams!
+
+&nbsp;
 
 ## Final Words
 
