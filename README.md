@@ -6,7 +6,7 @@
 
 ## Introduction
 
-BlitzBolt is a command-line based chess game written in C language (only!), designed for players who want to enjoy a quick game of chess on their computer. It is a simple yet fun game that you can play against an AI or with another player.
+BlitzBolt is a command-line based chess game written in C language (only!), designed for players who want to enjoy a quick game of chess on their computer. It is a complex yet fun game that you can play against an AI or with another player.
 
 The game features a standard 8x8 chess board, with pieces that move according to the standard chess rules. The environment where all the action is happening (sadly enough) is the console command you are currently running the game. The game also features a basic AI opponent, which provides a (somewhat) good challenge for beginners and casual players.
 
@@ -23,7 +23,7 @@ After that, an implementation of a chess table will be shown to `STDOUT`. The pl
 
 ### Commands
 
-All commands are given from the command line, on as single line.
+All commands are given from the command line, as single, continueous line.
 The possible commands are:
 
 * `START_GAME [AI]` --
@@ -47,7 +47,7 @@ The possible commands are:
   MOVE c4-d2
   ```
 
-  The command will first check if the move is valid and won't result in a check, and than executes the move.
+  The command will first check if the move is valid and that it won't result in a check for the current player, and than executes the move.
 
 * `PASS` --
   This command will skip the current player's turn. Unorthodox, but useful when you want to create specific scenarios.
@@ -114,4 +114,4 @@ It is a private repository for the moment. If you want access, don't hesitate to
 
 ## Final Words
 
-Whether you're a seasoned chess player or a beginner looking to learn chess (*currently population for Chess: everyone*), BlitzBolt is the perfect way to get your fix. So why not give it a try today?
+Whether you're a seasoned chess player or a beginner looking to learn chess (*current population for Chess: everyone*), BlitzBolt is the perfect way to get your fix. So why not give it a try today?
