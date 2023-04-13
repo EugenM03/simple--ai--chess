@@ -13,16 +13,16 @@
 			cmd_letter = cmd_ret_value; \
 	} while (0)
 
+// Convert a given string (char *) to lowercase
 void strlwr(char *str)
 {
 	for (size_t i = 0; i < strlen(str); i++)
 		str[i] = tolower(str[i]);
 }
 
+// Attribute for each command a specific character (letter)
 char cmd_selection(char *command)
 {
-	// for finding the case we're currently in, we use *valid
-	// char *valid;
 	char cmd_letter = '-';
 
 	COMMAND_INTERPRETER(command, "HELP", 'H');
@@ -35,36 +35,25 @@ char cmd_selection(char *command)
 	COMMAND_INTERPRETER(command, "RESIGN", 'R');
 	COMMAND_INTERPRETER(command, "HINT", 'D');
 
-	// valid = strstr(command, "HELP");
-	// if (valid && !strcmp(valid, "HELP"))
-	// 	cmd_letter = 'H';
-
-	// valid = strstr(command, "START_GAME");
-	// if (valid && !strcmp(valid, command))
-	// 	cmd_letter = 'S';
-
-	// valid = strstr(command, "EXIT");
-	// if (valid && !strcmp(valid, "EXIT")) {
-	// 	if (1) // maybe an if here?
-	// 		cmd_letter = '1';
-	// 	else
-	// 		cmd_letter = '0';
-	// }
-
 	return cmd_letter;
 }
 
 int main(void)
 {
-	// Commands from STDIN will be stored in *command
-
 	// piece_t ***table = NULL;
 	// bool ai_mode = false;
+
+	// Initialising variables used throughout the game:
+
+	// state - the current state of the game: stores table,
+	// if the game is played versus an AI, and current player's turn)
 	game_state_t *state = calloc(1, sizeof(game_state_t));
 	state->ai_mode = false;
 	state->table = NULL;
 
+	// Commands from STDIN will be stored in *command
 	char *command = calloc(MAX_CMD_SIZE, sizeof(char));
+
 	while (1) {
 		scanf("%s", command);
 		if (!command)
@@ -72,38 +61,42 @@ int main(void)
 
 		// Depending on the commands given, we run
 		// the correspondent command
-
 		switch (cmd_selection(command)) {
-		case 'H': {
+		case 'H': { // HELP
 			// help_game_function();
 			break;
 		}
-		case 'G': {
-			command[0] = '\0';
-			scanf("%[^\n]", command); // Problem with START_GAME AI
-			if (strcmp(command, "") == 0) {
+
+		// Programul pare ok pentru START_GAME [AI], in afara faptului cand
+		// dai enter (\n) pur si simplu de multe ori (pentru cazul default)
+
+		case 'G': { // START_GAME [AI]
+			scanf("%[^\n]", command); // Problem with START_GAME AI (" AI" instead of "AI")
+			if (strcmp(command, "START_GAME") == 0) {
 				state->ai_mode = false;
+				printf("Output: %s\n", command);
 			} else {
-				if (strcmp(command, "AI") == 0) {
+				if (strcmp(command, " AI") == 0) {
 					state->ai_mode = true;
 					printf("What color do you wish to play as? (W / b): ");
 					while (1) {
 						command[0] = '\0';
-						scanf("%[^\n]", command);
+						scanf("\n%[^\n]", command);
 						strlwr(command);
 						if (strcmp(command, "") == 0 || strcmp(command, "w") == 0 || strcmp(command, "white") == 0) {
+							printf("Your color: white\n");
 							state->turn = true;
 							break;
-						} else {
-							if (strcmp(command, "b") == 0 || strcmp(command, "black") == 0) {
-								state->turn = false;
-								break;
-							}
 						}
-						puts("Invalid command. Please input w/b");
+						if (strcmp(command, "b") == 0 || strcmp(command, "black") == 0) {
+							printf("Your color: black\n");
+							state->turn = false;
+							break;
+						}
+						printf("Invalid command. Please input w/b: ");
 					}
 				} else {
-					puts("Invalid command. Please try again.");
+					printf("Invalid command. Please try again.\n");
 					break;
 				}
 			}
@@ -124,47 +117,49 @@ int main(void)
 				strlwr(command);
 				if (strcmp(command, "") == 0 || strcmp(command, "n") == 0 ||
 					strcmp(command, "no") == 0) {
+					printf("Saving? No\n");
 					break;
-				} else {
-					if (strcmp(command, "y") == 0 || strcmp(command, "yes") == 0) {
-						// save_game();
-						break;
-					}
 				}
-				puts("Invalid command. Please input y/n.");
+				if (strcmp(command, "y") == 0 || strcmp(command, "yes") == 0) {
+					printf("Saving? Yes\n");
+					// save_game();
+					break;
+				}
+				printf("Invalid command. Please input y/n: ");
 			}
+
 			// deallocate_table();
 			state->table = start_game();
-			if (state->turn == false) {
+			if (!state->turn) {
 				state->turn = true;
 				// move_ai();
 			}
 			break;
 		}
-		case 'S': {
+		case 'S': { // SAVE <path_to_file>
 			// save_game_function();
 			break;
 		}
-		case 'L': {
+		case 'L': { // LOAD <path_to_file>
 			// load_game_function();
 			break;
 		}
-		case '0': {
-			// save_game_function();
+		case '0': { // EXIT
+			// save_game_function(); - "Do you want to save the current game?"
 			// dealloc_table();
 			return 0;
 		}
-		case 'M': {
+		case 'M': { // MOVE (eg. d4-e4)
 			// move_player();
 			// if (state->ai_mode)
 			//		move_ai();
 			break;
 		}
-		case 'P': {
-			// skip_turn();
+		case 'P': { // PASS
+			// skip_turn(); - Too much tension? Take a break; (lol)
 			break;
 		}
-		case 'R': {
+		case 'R': { // RESIGN
 			// dealloc_table();
 			break;
 		}
@@ -174,8 +169,6 @@ int main(void)
 		}
 		}
 	}
-
-	
 
 	if (command) {
 		free(command);
