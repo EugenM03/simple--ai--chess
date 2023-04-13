@@ -2,20 +2,21 @@
 #SETUP
 
 CC = gcc
-PARAMS = -Wall -Wextra -g
+PARAMS = -Wall -Wextra -std=c99 -g
 EXE = blitzbolt
+OBJ = main.o
+DEPS = struct.h
 
-build: $(EXE)
+build: $(DEPS) $(EXE)
 
-$(EXE): main.o 
-	$(CC) $(PARAMS) main.o -o $(EXE)
+$(EXE): $(OBJ)
+	$(CC) $(PARAMS) -o $@ $^
 
-main.o: main.c struct.h
-	$(CC) $(PARAMS) -c main.c
+%.o: %.c
+	$(CC) $(PARAMS) -c -o $@ $<
 
 run: $(EXE)
 	valgrind -s --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(EXE)
 
 clean:
-	rm -f ./blitzbolt
-	rm -f ./*.o
+	rm -f $(EXE) *.o
