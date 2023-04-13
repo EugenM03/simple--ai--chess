@@ -4,8 +4,8 @@
 CC = gcc
 PARAMS = -Wall -Wextra -std=c99 -g
 EXE = blitzbolt
-OBJ = main.o
-DEPS = struct.h
+OBJ = main.o bulk.o
+DEPS = struct.h bulk.h
 
 build: $(DEPS) $(EXE)
 

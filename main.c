@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
-
-
+#include <stdbool.h>
 #include "struct.h"
+#include "bulk.h"
 
 #define MAX_CMD_SIZE 128
 #define COMMAND_INTERPRETER(cmd_string, cmd_comp_string, cmd_ret_value) \
@@ -11,6 +12,12 @@
 		if (strcmp(cmd_string, cmd_comp_string) == 0) \
 			cmd_letter = cmd_ret_value; \
 	} while (0)
+
+void strlwr(char *str)
+{
+	for (size_t i = 0; i < strlen(str); i++)
+		str[i] = tolower(str[i]);
+}
 
 char cmd_selection(char *command)
 {
@@ -51,10 +58,16 @@ int main(void)
 {
 	// Commands from STDIN will be stored in *command
 
-	char *command = calloc(MAX_CMD_SIZE, sizeof(char));
+	piece ***table = NULL;
+	// char *response = calloc(MAX_CMD_SIZE, sizeof(char));
+	bool ai_mode = false;
+	// y, n, Y, N, yes, no, YES, NO
 
+	char *command = calloc(MAX_CMD_SIZE, sizeof(char));
 	while (1) {
 		scanf("%s", command);
+		if (!command)
+			continue;
 
 		// Depending on the commands given, we run
 		// the correspondent command
@@ -64,11 +77,50 @@ int main(void)
 			// help_game_function();
 			break;
 		}
+		case 'G': {
+			command[0] = '\0';
+			scanf("%[^\n]", command); // Problem with START_GAME AI
+			if (strcmp(command, "") == 0) {
+				ai_mode = false;
+			} else {
+				if (strcmp(command, "AI") == 0) {
+					ai_mode = true;
+				} else {
+					puts("Invalid command. Please try again.");
+					break;
+				}
+			}
+
+			if (!table) {
+				table = start_game(ai_mode);
+				break;
+			}
+
+			printf("Do you want to save the current game? (y / N): ");
+
+			while (1) {
+				scanf("\n%[^\n]", command);
+				strlwr(command);
+				if (strcmp(command, "") == 0 || strcmp(command, "n") == 0 ||
+					strcmp(command, "no") == 0) {
+					break;
+				} else {
+					if (strcmp(command, "y") == 0 || strcmp(command, "yes") == 0) {
+						// save_game();
+						break;
+					}
+				}
+				puts("Invalid command. Please input y/n.");
+			}
+			// deallocate_table();
+			start_game(ai_mode);
+			break;
+		}
 		case 'S': {
 			// save_game_function();
 			break;
 		}
-		case '1': {
+		case '0': {
 			// save_game_function();
 			return 0;
 		}
@@ -80,16 +132,7 @@ int main(void)
 		}
 	}
 
-	// We want this in something like start_game_function
-	// Allocate memory for the chess table
-	piece ***table = calloc(8, sizeof(piece **));
-	for (int i = 0; i < 8 ; i++) {
-		table[i] = calloc(8, sizeof(piece *));
-
-		if (i == 0 || i == 1 || i == 6 || i == 7)
-			for (int j = 0; j < 8; j++)
-				table[i][j] = calloc(1 , sizeof(piece));
-	}
+	
 
 	if (command) {
 		free(command);
