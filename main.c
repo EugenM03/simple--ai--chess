@@ -58,10 +58,11 @@ int main(void)
 {
 	// Commands from STDIN will be stored in *command
 
-	piece ***table = NULL;
-	// char *response = calloc(MAX_CMD_SIZE, sizeof(char));
-	bool ai_mode = false;
-	// y, n, Y, N, yes, no, YES, NO
+	// piece_t ***table = NULL;
+	// bool ai_mode = false;
+	game_state_t *state = calloc(1, sizeof(game_state_t));
+	state->ai_mode = false;
+	state->table = NULL;
 
 	char *command = calloc(MAX_CMD_SIZE, sizeof(char));
 	while (1) {
@@ -81,18 +82,38 @@ int main(void)
 			command[0] = '\0';
 			scanf("%[^\n]", command); // Problem with START_GAME AI
 			if (strcmp(command, "") == 0) {
-				ai_mode = false;
+				state->ai_mode = false;
 			} else {
 				if (strcmp(command, "AI") == 0) {
-					ai_mode = true;
+					state->ai_mode = true;
+					printf("What color do you wish to play as? (W / b): ");
+					while (1) {
+						command[0] = '\0';
+						scanf("%[^\n]", command);
+						strlwr(command);
+						if (strcmp(command, "") == 0 || strcmp(command, "w") == 0 || strcmp(command, "white") == 0) {
+							state->turn = true;
+							break;
+						} else {
+							if (strcmp(command, "b") == 0 || strcmp(command, "black") == 0) {
+								state->turn = false;
+								break;
+							}
+						}
+						puts("Invalid command. Please input w/b");
+					}
 				} else {
 					puts("Invalid command. Please try again.");
 					break;
 				}
 			}
 
-			if (!table) {
-				table = start_game(ai_mode);
+			if (!state->table) {
+				state->table = start_game();
+				if (!state->turn) {
+					state->turn ^= 1;
+					// move_ai(); state->turn = false in function
+				}
 				break;
 			}
 
@@ -113,18 +134,40 @@ int main(void)
 				puts("Invalid command. Please input y/n.");
 			}
 			// deallocate_table();
-			start_game(ai_mode);
+			state->table = start_game();
+			if (state->turn == false) {
+				state->turn = true;
+				// move_ai();
+			}
 			break;
 		}
 		case 'S': {
 			// save_game_function();
 			break;
 		}
+		case 'L': {
+			// load_game_function();
+			break;
+		}
 		case '0': {
 			// save_game_function();
+			// dealloc_table();
 			return 0;
 		}
-
+		case 'M': {
+			// move_player();
+			// if (state->ai_mode)
+			//		move_ai();
+			break;
+		}
+		case 'P': {
+			// skip_turn();
+			break;
+		}
+		case 'R': {
+			// dealloc_table();
+			break;
+		}
 		default: {
 			printf("Invalid command.\n");
 			break;

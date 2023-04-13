@@ -1,4 +1,4 @@
 #pragma once
 #include "struct.h"
 
-piece *** start_game(bool ai);
+piece_t *** start_game(void);
