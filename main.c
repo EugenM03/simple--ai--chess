@@ -6,43 +6,28 @@
 #include "struct.h"
 
 #define MAX_CMD_SIZE 128
-#define COMMAND_INTERPRETER(cmd_string, cmd_comp_string, cmd_ret_value) \
-	do { \
-		if (strcmp(cmd_string, cmd_comp_string) == 0) \
-			cmd_letter = cmd_ret_value; \
-	} while (0)
 
 char cmd_selection(char *command)
 {
 	// for finding the case we're currently in, we use *valid
-	// char *valid;
+	char *valid;
 	char cmd_letter = '-';
 
-	COMMAND_INTERPRETER(command, "HELP", 'H');
-	COMMAND_INTERPRETER(command, "START_GAME", 'G');
-	COMMAND_INTERPRETER(command, "SAVE", 'S');
-	COMMAND_INTERPRETER(command, "LOAD", 'L');
-	COMMAND_INTERPRETER(command, "EXIT", '0');
-	COMMAND_INTERPRETER(command, "MOVE", 'M');
-	COMMAND_INTERPRETER(command, "PASS", 'P');
-	COMMAND_INTERPRETER(command, "RESIGN", 'R');
-	COMMAND_INTERPRETER(command, "HINT", 'D');
+	valid = strstr(command, "HELP");
+	if (valid && !strcmp(valid, "HELP"))
+		cmd_letter = 'H';
 
-	// valid = strstr(command, "HELP");
-	// if (valid && !strcmp(valid, "HELP"))
-	// 	cmd_letter = 'H';
+	valid = strstr(command, "START_GAME");
+	if (valid && !strcmp(valid, command))
+		cmd_letter = 'S';
 
-	// valid = strstr(command, "START_GAME");
-	// if (valid && !strcmp(valid, command))
-	// 	cmd_letter = 'S';
-
-	// valid = strstr(command, "EXIT");
-	// if (valid && !strcmp(valid, "EXIT")) {
-	// 	if (1) // maybe an if here?
-	// 		cmd_letter = '1';
-	// 	else
-	// 		cmd_letter = '0';
-	// }
+	valid = strstr(command, "EXIT");
+	if (valid && !strcmp(valid, "EXIT")) {
+		if (1) // maybe an if here?
+			cmd_letter = '1';
+		else
+			cmd_letter = '0';
+	}
 
 	return cmd_letter;
 }
@@ -53,13 +38,14 @@ int main(void)
 
 	char *command = calloc(MAX_CMD_SIZE, sizeof(char));
 
-	while (1) {
-		scanf("%s", command);
+	int run = 1;
+	while (run) {
+		scanf("%s", command); getchar();
 
 		// Depending on the commands given, we run
 		// the correspondent command
-
-		switch (cmd_selection(command)) {
+		char cmd = cmd_selection(command);
+		switch (cmd) {
 		case 'H': {
 			// help_game_function();
 			break;
@@ -70,13 +56,15 @@ int main(void)
 		}
 		case '1': {
 			// save_game_function();
-			return 0;
+			run = 0;
+			break;
 		}
 
 		default: {
 			printf("Invalid command.\n");
 			break;
 		}
+
 		}
 	}
 

@@ -111,7 +111,7 @@ This C-programmed chess game will be made by two students, each having multiple 
 
 ## Contact
 
-The project will be often updated on the following **GitHub link:** https://github.com/EugenM03/simple--ai--chess
+The project will be often updated on the following GitHub [link](https://github.com/EugenM03/simple--ai--chess).
 
 It is a private repository for the moment. If you want access to its content, don't hesitate to contact us on Teams!
 
